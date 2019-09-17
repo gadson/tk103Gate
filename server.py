@@ -21,7 +21,7 @@ django.setup()
 from api.models import Geo, movement
 
 # **,imei:359586018966098,B
-startups = [("359586018966098", "**,imei:864895033178706,C,20s")]
+
 HOST = '0.0.0.0'  # Symbolic name meaning all available interfaces
 PORT = 8888  # Arbitrary non-privileged port
 
@@ -95,18 +95,15 @@ def clientthread(conn):
                 data2 = data.decode()[:-1]  # remove ;
                 parts = data2.split(',')
                 if len(parts) > 11:
-                    #self.last = time.time()
-                    #self.counter = self.counts
-                    #os.utime(self.lastfile, None)  # mark OK
                     # print parts[7],parts[8],parts[9],parts[10]
                     #
                     # parse messages "help me", "et", etc?
-                    # imei:35971004071XXXX,et,1304041745,,F,164528.000,A,5150.6452,N,00551.9452,E,0.00,0;
+                    # imei:35971004071XXXX,et,1304041745,,F,164528.000,A,5150.6452,N,00551.9342,E,0.00,0;
                     # imei:35971004071XXXX,help me,1304041743,,F,164345.000,A,5150.6452,N,00551.9452,E,0.00,0;
                     # imei:35971004071XXXX,tracker,1304041747,,F,164726.000,A,5150.6452,N,00551.9452,E,0.00,0;
                     if parts[8] != "":
                         # 5620.2932 = ddmm.mmmm
-                        #
+                        # Вычисляем координаты
                         ddmmmmmm = float(parts[7])
                         degs = int(ddmmmmmm / 100)
                         mins = ddmmmmmm - (degs * 100)
